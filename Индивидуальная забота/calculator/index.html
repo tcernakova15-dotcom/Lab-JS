@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Калькулятор</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <main class="wrapper">
+    <div class="calculator" id="calculator" role="application" aria-label="Калькулятор">
+
+      <!-- История вычислений -->
+      <div class="history" id="history" aria-live="polite" aria-label="История вычислений">
+        <span class="history-placeholder">История пуста</span>
+      </div>
+
+      <!-- Дисплей -->
+      <div class="display">
+        <div class="expression" id="expression" aria-label="Текущее выражение"></div>
+        <div class="result"   id="result"     aria-label="Результат">0</div>
+      </div>
+
+      <!-- Ошибка валидации -->
+      <div class="error-msg" id="error-msg" role="alert" aria-live="assertive"></div>
+
+      <!-- Кнопки -->
+      <div class="buttons" id="buttons">
+        <!-- Строка 1 -->
+        <button class="btn btn-func" data-action="clear-history" aria-label="Очистить историю">HIST</button>
+        <button class="btn btn-func" data-action="toggle-sign"   aria-label="Сменить знак">+/−</button>
+        <button class="btn btn-func" data-action="percent"       aria-label="Процент">%</button>
+        <button class="btn btn-op"   data-action="operator" data-value="÷" aria-label="Разделить">÷</button>
+
+        <!-- Строка 2 -->
+        <button class="btn btn-digit" data-action="digit" data-value="7">7</button>
+        <button class="btn btn-digit" data-action="digit" data-value="8">8</button>
+        <button class="btn btn-digit" data-action="digit" data-value="9">9</button>
+        <button class="btn btn-op"    data-action="operator" data-value="×" aria-label="Умножить">×</button>
+
+        <!-- Строка 3 -->
+        <button class="btn btn-digit" data-action="digit" data-value="4">4</button>
+        <button class="btn btn-digit" data-action="digit" data-value="5">5</button>
+        <button class="btn btn-digit" data-action="digit" data-value="6">6</button>
+        <button class="btn btn-op"    data-action="operator" data-value="−" aria-label="Вычесть">−</button>
+
+        <!-- Строка 4 -->
+        <button class="btn btn-digit" data-action="digit" data-value="1">1</button>
+        <button class="btn btn-digit" data-action="digit" data-value="2">2</button>
+        <button class="btn btn-digit" data-action="digit" data-value="3">3</button>
+        <button class="btn btn-op"    data-action="operator" data-value="+" aria-label="Прибавить">+</button>
+
+        <!-- Строка 5 -->
+        <button class="btn btn-digit btn-zero" data-action="digit" data-value="0">0</button>
+        <button class="btn btn-digit" data-action="dot"   aria-label="Десятичная точка">,</button>
+        <button class="btn btn-eq"    data-action="equals" aria-label="Равно">=</button>
+      </div>
+
+      <!-- Backspace снизу -->
+      <button class="btn btn-backspace" id="backspace" data-action="backspace" aria-label="Удалить последний символ">⌫</button>
+    </div>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

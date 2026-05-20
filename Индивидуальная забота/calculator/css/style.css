@@ -1,0 +1,265 @@
+/* ===== CSS-переменные ===== */
+:root {
+  --bg:         #0d0f14;
+  --surface:    #161a23;
+  --surface-2:  #1e2430;
+  --border:     #2a3040;
+  --accent:     #00e5ff;
+  --accent-dim: #00b8cc;
+  --op:         #ff6b35;
+  --op-dim:     #cc5528;
+  --text:       #e8eaf0;
+  --text-dim:   #6b7280;
+  --error:      #ff4d6d;
+  --radius:     16px;
+  --gap:        10px;
+  --btn-size:   72px;
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ===== Фон с сеткой ===== */
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  color: var(--text);
+  overflow: hidden;
+}
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== Обёртка ===== */
+.wrapper {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+
+/* ===== Калькулятор ===== */
+.calculator {
+  width: 340px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow:
+    0 0 0 1px rgba(0,229,255,.08),
+    0 32px 80px rgba(0,0,0,.6),
+    0 0 60px rgba(0,229,255,.04);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slideUp .4s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== История ===== */
+.history {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  min-height: 52px;
+  max-height: 100px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.history-placeholder {
+  color: var(--text-dim);
+  font-size: .78rem;
+  font-style: italic;
+  align-self: center;
+  margin: auto;
+}
+
+.history-entry {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .78rem;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 2px 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  animation: fadeIn .2s ease;
+}
+
+.history-entry .h-expr { color: var(--text-dim); }
+.history-entry .h-res  { color: var(--accent); font-weight: 600; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ===== Дисплей ===== */
+.display {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px 12px;
+  text-align: right;
+  min-height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.expression {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .85rem;
+  color: var(--text-dim);
+  min-height: 1.2em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: rtl;
+  text-align: left;
+}
+
+.result {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 2.6rem;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color .15s;
+}
+
+.result.has-result { color: var(--accent); }
+
+/* ===== Ошибка ===== */
+.error-msg {
+  font-size: .78rem;
+  color: var(--error);
+  min-height: 1em;
+  padding: 0 4px;
+  transition: opacity .2s;
+}
+.error-msg:empty { opacity: 0; }
+
+/* ===== Кнопки ===== */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+}
+
+.btn {
+  height: var(--btn-size);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background .12s, transform .08s, box-shadow .12s;
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.btn:hover  { background: #252d3d; box-shadow: 0 0 0 1px rgba(0,229,255,.15); }
+.btn:active { transform: scale(.93); }
+
+/* Рябь при клике */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.btn.ripple::after { opacity: 1; }
+
+/* Функциональные кнопки */
+.btn-func {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: .04em;
+}
+
+/* Операторы */
+.btn-op {
+  background: rgba(255,107,53,.12);
+  border-color: rgba(255,107,53,.25);
+  color: var(--op);
+  font-size: 1.3rem;
+}
+.btn-op:hover   { background: rgba(255,107,53,.22); box-shadow: 0 0 0 1px rgba(255,107,53,.3); }
+.btn-op.active  {
+  background: var(--op);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255,107,53,.4);
+}
+
+/* Кнопка «=» */
+.btn-eq {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  font-size: 1.4rem;
+  font-weight: 700;
+  box-shadow: 0 0 24px rgba(0,229,255,.25);
+}
+.btn-eq:hover   { background: var(--accent-dim); box-shadow: 0 0 30px rgba(0,229,255,.4); }
+.btn-eq:active  { transform: scale(.92); }
+
+/* Кнопка 0 */
+.btn-zero { grid-column: span 2; }
+
+/* Backspace */
+.btn-backspace {
+  width: 100%;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background .12s, color .12s;
+  font-family: 'Outfit', sans-serif;
+}
+.btn-backspace:hover  { background: #252d3d; color: var(--error); }
+.btn-backspace:active { transform: scale(.95); }
+
+/* ===== Адаптивность ===== */
+@media (max-width: 400px) {
+  :root { --btn-size: 62px; }
+  .calculator { width: 300px; padding: 14px; }
+  .result { font-size: 2rem; }
+}
